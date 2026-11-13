@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 // GANTI data di bawah dengan data dirimu sendiri.
 const PROFILE = {
   nama: 'Greycilfa',
@@ -7,6 +9,10 @@ const PROFILE = {
 }
 
 export default function About() {
+  useEffect(() => {
+    document.title = 'Profil & Tentang · KeyForge'
+  }, [])
+
   return (
     <div className="page">
       <h1>Profil &amp; Tentang</h1>

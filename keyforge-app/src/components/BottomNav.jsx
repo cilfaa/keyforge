@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom'
+import { IconHome, IconKeyboard, IconSwitch, IconUser } from './Icons.jsx'
 
 const ITEMS = [
-  { to: '/', label: 'Beranda', icon: '🏠', end: true },
-  { to: '/keyboards', label: 'Keyboard', icon: '⌨️' },
-  { to: '/switches', label: 'Switch', icon: '🔘' },
-  { to: '/about', label: 'Profil', icon: '👤' },
+  { to: '/', label: 'Beranda', Icon: IconHome, end: true },
+  { to: '/keyboards', label: 'Keyboard', Icon: IconKeyboard },
+  { to: '/switches', label: 'Switch', Icon: IconSwitch },
+  { to: '/about', label: 'Profil', Icon: IconUser },
 ]
 
 export default function BottomNav() {
@@ -17,7 +18,9 @@ export default function BottomNav() {
           end={it.end}
           className={({ isActive }) => 'nav-item' + (isActive ? ' active' : '')}
         >
-          <span className="nav-icon">{it.icon}</span>
+          <span className="nav-icon">
+            <it.Icon />
+          </span>
           <span>{it.label}</span>
         </NavLink>
       ))}

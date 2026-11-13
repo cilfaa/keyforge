@@ -1,14 +1,7 @@
 import { Link } from 'react-router-dom'
-import { playSwitchSound } from '../sound.js'
+import SoundButton from './SoundButton.jsx'
 
 export default function SwitchCard({ sw }) {
-  // Tombol suara ada di dalam kartu, jadi klik-nya tidak boleh ikut membuka halaman detail
-  const onSound = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    playSwitchSound(sw.type)
-  }
-
   return (
     <li>
       <Link to={`/switches/${sw.id}`} className="card">
@@ -20,16 +13,8 @@ export default function SwitchCard({ sw }) {
           <span className={`tag type-${sw.type.toLowerCase()}`}>{sw.type}</span>
         </div>
         <div className="card-side">
-          <button
-            type="button"
-            className="sound-btn"
-            onClick={onSound}
-            aria-label={`Dengarkan suara ${sw.name}`}
-            title="Dengarkan suara"
-          >
-            🔊
-          </button>
-          <span className="chevron">›</span>
+          <SoundButton type={sw.type} name={sw.name} />
+          <span className="chevron" aria-hidden="true">›</span>
         </div>
       </Link>
     </li>

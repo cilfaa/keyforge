@@ -1,24 +1,44 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { getCached } from './api.js'
 
-// Hook kecil: ambil data dari API, kembalikan { data, loading, error }
-export default function useFetch(fetcher, deps = []) {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
+// Hook ambil data dengan dukungan cache instan + tombol "Coba lagi" (retry)
+export default function useFetch(fetcher, pathKey) {
+  const initial = pathKey ? getCached(pathKey) : null
+  const [data, setData] = useState(initial)
+  const [loading, setLoading] = useState(!initial)
   const [error, setError] = useState('')
+  const [tick, setTick] = useState(0)
 
   useEffect(() => {
     let alive = true
+    const cached = pathKey && tick === 0 ? getCached(pathKey) : null
+    if (cached) {
+      setData(cached)
+      setLoading(false)
+      setError('')
+      return
+    }
+
     setLoading(true)
     setError('')
-    fetcher()
-      .then((d) => alive && setData(d))
-      .catch((e) => alive && setError(e.message))
-      .finally(() => alive && setLoading(false))
+    fetcher({ force: tick > 0 })
+      .then((d) => {
+        if (alive) setData(d)
+      })
+      .catch((e) => {
+        if (alive) setError(e.message || 'Gagal memuat data.')
+      })
+      .finally(() => {
+        if (alive) setLoading(false)
+      })
+
     return () => {
       alive = false
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps)
+  }, [pathKey, tick])
 
-  return { data, loading, error }
+  const retry = useCallback(() => setTick((t) => t + 1), [])
+
+  return { data, loading, error, retry }
 }
