@@ -15,7 +15,13 @@
 .card { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; color: var(--text); transition: border-color 0.15s, background 0.15s, transform 0.15s; }
 .card:hover { background: var(--card-hover); border-color: #3d4556; transform: translateY(-1px); }
 .card:active { background: #20242d; transform: translateY(0); }
-.card-side { display: flex; align-items: center; gap: 8px; text-align: right; }
+.card-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.card-main { min-width: 0; }
+.card-side { display: flex; align-items: center; gap: 8px; text-align: right; flex-shrink: 0; }
+.thumb-box { background: #141820; border: 1px solid var(--line); border-radius: 10px; display: grid; place-items: center; overflow: hidden; flex-shrink: 0; }
+.thumb-sm { width: 64px; height: 48px; padding: 4px; }
+.thumb-lg { width: 100%; height: 150px; padding: 14px; margin-bottom: 12px; border-radius: 14px; }
+.thumb-svg { width: 100%; height: 100%; display: block; }
 .chevron { color: var(--muted); font-size: 1.4rem; transition: transform 0.15s, color 0.15s; }
 .card:hover .chevron { color: var(--accent); transform: translateX(2px); }
 

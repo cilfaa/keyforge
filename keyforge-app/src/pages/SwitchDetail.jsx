@@ -4,6 +4,7 @@ import useFetch from '../useFetch.js'
 import { getKeyboards, getSwitch } from '../api.js'
 import SoundButton from '../components/SoundButton.jsx'
 import KeyboardCard from '../components/KeyboardCard.jsx'
+import { SwitchThumb } from '../components/Thumbs.jsx'
 import State from '../components/State.jsx'
 
 export default function SwitchDetail() {
@@ -34,6 +35,7 @@ export default function SwitchDetail() {
       <State loading={loading} error={error} onRetry={retry} detail />
       {sw && (
         <>
+          <SwitchThumb sw={sw} size="lg" />
           <h1>{sw.name}</h1>
           <span className={`tag type-${sw.type.toLowerCase()}`}>{sw.type}</span>
           <p>{sw.description}</p>

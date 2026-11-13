@@ -4,6 +4,7 @@ import useFetch from '../useFetch.js'
 import { getKeyboard } from '../api.js'
 import State from '../components/State.jsx'
 import SoundButton from '../components/SoundButton.jsx'
+import { KeyboardThumb } from '../components/Thumbs.jsx'
 import { rupiah } from '../components/KeyboardCard.jsx'
 
 export default function KeyboardDetail() {
@@ -31,6 +32,7 @@ export default function KeyboardDetail() {
       <State loading={loading} error={error} onRetry={retry} detail />
       {kb && (
         <>
+          <KeyboardThumb kb={kb} size="lg" />
           <h1>{kb.name}</h1>
           <p className="muted">
             {kb.brand} · {kb.layout}
