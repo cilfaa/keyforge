@@ -5,7 +5,7 @@ import { getKeyboard } from '../api.js'
 import State from '../components/State.jsx'
 import SoundButton from '../components/SoundButton.jsx'
 import { KeyboardThumb } from '../components/Thumbs.jsx'
-import { rupiah } from '../components/KeyboardCard.jsx'
+import { formatLayout, rupiah } from '../components/KeyboardCard.jsx'
 
 export default function KeyboardDetail() {
   const { id } = useParams()
@@ -35,7 +35,7 @@ export default function KeyboardDetail() {
           <KeyboardThumb kb={kb} size="lg" />
           <h1>{kb.name}</h1>
           <p className="muted">
-            {kb.brand} · {kb.layout}
+            {kb.brand} · {formatLayout(kb.layout)}
           </p>
           <p className="price">{rupiah(kb.price)}</p>
           <p>{kb.description}</p>
@@ -44,8 +44,8 @@ export default function KeyboardDetail() {
           <dl className="spec">
             <dt>Merek</dt>
             <dd>{kb.brand}</dd>
-            <dt>Layout</dt>
-            <dd>{kb.layout}</dd>
+            <dt>Ukuran</dt>
+            <dd>{formatLayout(kb.layout)}</dd>
             <dt>Switch</dt>
             <dd>
               {kb.switches ? (

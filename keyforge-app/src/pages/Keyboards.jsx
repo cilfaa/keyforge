@@ -5,13 +5,18 @@ import { getKeyboards } from '../api.js'
 import KeyboardCard from '../components/KeyboardCard.jsx'
 import State from '../components/State.jsx'
 
-const LAYOUTS = ['Semua', '60%', '65%', '75%', 'TKL', 'Full']
+const SIZES = [
+  { label: 'Semua', layouts: null },
+  { label: 'Kecil', layouts: ['60%', '65%'] },
+  { label: 'Sedang', layouts: ['75%'] },
+  { label: 'Besar', layouts: ['TKL', 'Full'] },
+]
 
 export default function Keyboards() {
   const { data, loading, error, retry } = useFetch(getKeyboards, '/api/keyboards')
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const layout = searchParams.get('layout') || 'Semua'
+  const ukuran = searchParams.get('ukuran') || 'Semua'
   const q = searchParams.get('q') || ''
   const sort = searchParams.get('sort') || 'name'
 
@@ -26,11 +31,13 @@ export default function Keyboards() {
     setSearchParams(next, { replace: true })
   }
 
+  const activeSize = SIZES.find((s) => s.label === ukuran) || SIZES[0]
+
   const shown = (data || [])
     .filter(
       (k) =>
-        (layout === 'Semua' || k.layout === layout) &&
-        (k.name + ' ' + (k.brand || '') + ' ' + (k.switches?.name || ''))
+        (!activeSize.layouts || activeSize.layouts.includes(k.layout)) &&
+        (k.name + ' ' + (k.brand || '') + ' ' + (k.switches?.name || '') + ' ' + (k.layout || ''))
           .toLowerCase()
           .includes(q.toLowerCase()),
     )
@@ -53,15 +60,15 @@ export default function Keyboards() {
         value={q}
         onChange={(e) => updateParam('q', e.target.value, '')}
       />
-      <div className="chips" role="group" aria-label="Filter layout keyboard">
-        {LAYOUTS.map((l) => (
+      <div className="chips" role="group" aria-label="Filter ukuran keyboard">
+        {SIZES.map((s) => (
           <button
-            key={l}
+            key={s.label}
             type="button"
-            className={'chip' + (layout === l ? ' on' : '')}
-            onClick={() => updateParam('layout', l, 'Semua')}
+            className={'chip' + (ukuran === s.label ? ' on' : '')}
+            onClick={() => updateParam('ukuran', s.label, 'Semua')}
           >
-            {l}
+            {s.label}
           </button>
         ))}
       </div>
