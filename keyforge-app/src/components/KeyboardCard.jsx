@@ -17,9 +17,12 @@ export default function KeyboardCard({ kb }) {
   const [added, setAdded] = useState(false)
   const timerRef = useRef(null)
 
+  const outOfStock = kb.stock !== undefined && Number(kb.stock) <= 0
+
   const onAdd = (e) => {
     e.preventDefault()
     e.stopPropagation()
+    if (outOfStock) return
     addItem(kb)
     setAdded(true)
     clearTimeout(timerRef.current)
@@ -47,10 +50,11 @@ export default function KeyboardCard({ kb }) {
             type="button"
             className={'cart-add-btn' + (added ? ' is-added' : '')}
             onClick={onAdd}
-            aria-label={`Tambah ${kb.name} ke keranjang`}
-            title="Tambah ke keranjang"
+            disabled={outOfStock}
+            aria-label={outOfStock ? `Stok ${kb.name} habis` : `Tambah ${kb.name} ke keranjang`}
+            title={outOfStock ? 'Stok habis' : 'Tambah ke keranjang'}
           >
-            {added ? '✓' : '+'}
+            {outOfStock ? '×' : added ? '✓' : '+'}
           </button>
           <span className="chevron" aria-hidden="true">›</span>
         </div>

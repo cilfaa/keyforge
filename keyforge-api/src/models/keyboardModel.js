@@ -2,7 +2,7 @@ import { supabase } from "../config/supabaseClient.js";
 
 // Kolom keyboard + data switch yang terhubung (relasi lewat switch_id)
 const COLUMNS = `
-  id, name, brand, layout, price, description, switch_id,
+  id, name, brand, layout, price, stock, description, switch_id,
   switches ( id, name, type, actuation_force, travel_mm, sound )
 `;
 

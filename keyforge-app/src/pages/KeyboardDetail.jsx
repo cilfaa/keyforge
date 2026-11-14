@@ -28,7 +28,10 @@ export default function KeyboardDetail() {
     }
   }
 
+  const outOfStock = kb?.stock !== undefined && Number(kb.stock) <= 0
+
   const handleAdd = () => {
+    if (outOfStock) return
     addItem(kb)
     setAdded(true)
     clearTimeout(timerRef.current)
@@ -51,8 +54,8 @@ export default function KeyboardDetail() {
           <p className="price">{rupiah(kb.price)}</p>
           <p>{kb.description}</p>
 
-          <button type="button" className={'btn' + (added ? ' is-added' : '')} onClick={handleAdd}>
-            {added ? '✓ Ditambahkan ke Keranjang' : '+ Tambah ke Keranjang'}
+          <button type="button" className={'btn' + (added ? ' is-added' : '')} onClick={handleAdd} disabled={outOfStock}>
+            {outOfStock ? 'Stok Habis' : added ? '✓ Ditambahkan ke Keranjang' : '+ Tambah ke Keranjang'}
           </button>
           {totalCount > 0 && (
             <Link to="/cart" className="btn btn-secondary">
@@ -66,6 +69,12 @@ export default function KeyboardDetail() {
             <dd>{kb.brand}</dd>
             <dt>Ukuran</dt>
             <dd>{formatLayout(kb.layout)}</dd>
+            {kb.stock !== undefined && (
+              <>
+                <dt>Stok</dt>
+                <dd>{Number(kb.stock) > 0 ? `${kb.stock} unit tersedia` : 'Habis'}</dd>
+              </>
+            )}
             <dt>Switch</dt>
             <dd>
               {kb.switches ? (

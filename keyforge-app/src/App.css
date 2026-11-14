@@ -142,3 +142,30 @@
 .receipt-row:last-child { border-bottom: none; }
 .receipt-total { display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; }
 .receipt-total strong { color: var(--accent); font-size: 1.3rem; }
+
+/* Akun, Pembayaran & Riwayat Pesanan */
+.spec-plain { background: transparent; border: none; padding: 4px 0; }
+.form-error { color: #ff8b8b; font-size: 0.9rem; margin: 10px 0 0; }
+.link-switch { display: block; width: 100%; background: none; border: none; color: var(--muted); font-size: 0.88rem; margin-top: 12px; cursor: pointer; text-align: center; }
+.link-switch:hover { color: var(--accent); text-decoration: underline; }
+.pay-methods { display: grid; gap: 8px; margin-top: 8px; }
+.pay-option { display: flex; align-items: flex-start; gap: 10px; padding: 11px 12px; border-radius: 12px; border: 1px solid var(--line); background: #141820; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.pay-option:hover { border-color: #3d4556; }
+.pay-option.on { border-color: var(--accent); background: rgba(245, 166, 35, 0.08); }
+.pay-option input { margin-top: 4px; accent-color: var(--accent); }
+.pay-instruct { border-color: rgba(245, 166, 35, 0.45); }
+.pay-ref { background: #141820; border: 1px dashed var(--accent); border-radius: 10px; padding: 10px 12px; color: var(--accent); font-weight: 700; word-break: break-all; }
+.btn-danger-outline { background: transparent; color: #ff8b8b; border-color: rgba(255, 123, 123, 0.4); }
+.btn-danger-outline:hover { background: rgba(255, 123, 123, 0.12); border-color: #ff8b8b; }
+
+.order-card { flex-direction: column; align-items: stretch; gap: 8px; }
+.order-top, .order-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.order-code { color: var(--accent); font-size: 0.95rem; }
+.order-items-summary { margin: 0 0 2px; font-weight: 600; }
+.order-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.order-total { color: var(--text); }
+.badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.pay-pending, .ord-pending { background: #3a2f1a; color: #ffd27a; }
+.pay-paid, .ord-completed { background: rgba(46, 160, 67, 0.22); color: #56d364; }
+.pay-failed { background: #3a1f1f; color: #ff9d9d; }
+.ord-processing, .ord-shipped { background: #1c2c40; color: #8cc4ff; }
