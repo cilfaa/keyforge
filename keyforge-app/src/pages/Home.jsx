@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import useFetch from '../useFetch.js'
 import { getMotifs, getRegions } from '../api.js'
 import MotifCard from '../components/MotifCard.jsx'
+import RegionCard from '../components/RegionCard.jsx'
 import State from '../components/State.jsx'
 
 export default function Home() {
@@ -34,6 +35,19 @@ export default function Home() {
           <span>Provinsi Indonesia</span>
         </Link>
       </section>
+
+      <div className="list-head">
+        <h2>Jelajahi per Provinsi</h2>
+        <Link to="/regions">Lihat 38 provinsi ›</Link>
+      </div>
+      <State loading={regions.loading} error={regions.error} onRetry={regions.retry} count={3} />
+      <ul className="list">
+        {regions.data &&
+          ['Jambi', 'DI Yogyakarta', 'Jawa Barat', 'Sumatera Barat', 'Bali', 'Papua']
+            .map((prov) => regions.data.find((r) => r.province === prov))
+            .filter(Boolean)
+            .map((r) => <RegionCard key={r.id} region={r} />)}
+      </ul>
 
       <div className="list-head">
         <h2>Motif Pilihan Nusantara</h2>

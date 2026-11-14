@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
-import { getMotif } from '../api.js'
+import { getMotif, getMotifs } from '../api.js'
+import MotifCard from '../components/MotifCard.jsx'
 import State from '../components/State.jsx'
 import { MotifThumb } from '../components/Thumbs.jsx'
 
@@ -9,6 +10,7 @@ export default function MotifDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { data: motif, loading, error, retry } = useFetch((opts) => getMotif(id, opts), `/api/motifs/${id}`)
+  const allMotifs = useFetch(getMotifs, '/api/motifs')
 
   useEffect(() => {
     document.title = motif ? `${motif.name} · WastraKu` : 'Detail Motif · WastraKu'
@@ -18,6 +20,13 @@ export default function MotifDetail() {
     if (window.history.state && window.history.state.idx > 0) navigate(-1)
     else navigate('/motifs')
   }
+
+  const otherSameRegionMotifs =
+    motif && allMotifs.data
+      ? allMotifs.data.filter(
+          (m) => m.id !== motif.id && (m.region_id === motif.region_id || m.regions?.id === motif.regions?.id),
+        )
+      : []
 
   return (
     <div className="page">
@@ -80,6 +89,19 @@ export default function MotifDetail() {
             <dt>Penggunaan Adat</dt>
             <dd>{motif.occasion}</dd>
           </dl>
+
+          {otherSameRegionMotifs.length > 0 && (
+            <>
+              <div className="list-head">
+                <h2>Motif Lainnya dari {motif.regions?.province || 'Daerah Ini'}</h2>
+              </div>
+              <ul className="list">
+                {otherSameRegionMotifs.map((m) => (
+                  <MotifCard key={m.id} motif={m} />
+                ))}
+              </ul>
+            </>
+          )}
 
           {motif.regions && (
             <Link
