@@ -91,3 +91,40 @@ export const getMotifs = (opts) => request('/api/motifs', opts)
 export const getMotif = (id, opts) => request(`/api/motifs/${id}`, opts)
 export const getRegions = (opts) => request('/api/regions', opts)
 export const getRegion = (id, opts) => request(`/api/regions/${id}`, opts)
+
+function clearMotifCache() {
+  for (const key of Array.from(cache.keys())) {
+    if (key.startsWith('/api/motifs')) cache.delete(key)
+  }
+  try {
+    for (let i = sessionStorage.length - 1; i >= 0; i -= 1) {
+      const k = sessionStorage.key(i)
+      if (k && k.startsWith(`${STORAGE_PREFIX}/api/motifs`)) sessionStorage.removeItem(k)
+    }
+  } catch {
+    // Abaikan jika sessionStorage tidak tersedia
+  }
+}
+
+async function mutate(path, method, body) {
+  let res
+  try {
+    res = await fetch(`${BASE}${path}`, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined,
+    })
+  } catch {
+    throw new Error('Tidak dapat terhubung ke server. Periksa koneksi internetmu.')
+  }
+  if (!res.ok) {
+    const errBody = await res.json().catch(() => ({}))
+    throw new Error(errBody.error || 'Gagal menyimpan perubahan ke server.')
+  }
+  clearMotifCache()
+  return res.json()
+}
+
+export const createMotif = (payload) => mutate('/api/motifs', 'POST', payload)
+export const updateMotif = (id, payload) => mutate(`/api/motifs/${id}`, 'PUT', payload)
+export const deleteMotif = (id) => mutate(`/api/motifs/${id}`, 'DELETE')

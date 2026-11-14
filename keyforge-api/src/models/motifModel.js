@@ -17,4 +17,22 @@ export const MotifModel = {
     if (error) throw error;
     return data;
   },
+
+  async create(payload) {
+    const { data, error } = await supabase.from("motifs").insert([payload]).select(COLUMNS).single();
+    if (error) throw error;
+    return data;
+  },
+
+  async update(id, payload) {
+    const { data, error } = await supabase.from("motifs").update(payload).eq("id", id).select(COLUMNS).maybeSingle();
+    if (error) throw error;
+    return data;
+  },
+
+  async remove(id) {
+    const { data, error } = await supabase.from("motifs").delete().eq("id", id).select("id").maybeSingle();
+    if (error) throw error;
+    return data;
+  },
 };

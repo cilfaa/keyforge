@@ -27,5 +27,44 @@ export function createResourceController(model, notFoundMessage) {
         res.status(500).json({ error: err.message })
       }
     },
+
+    async create(req, res) {
+      try {
+        const data = await model.create(req.body)
+        res.status(201).json(data)
+      } catch (err) {
+        res.status(400).json({ error: err.message })
+      }
+    },
+
+    async update(req, res) {
+      const { id } = req.params
+      if (!UUID_RE.test(id)) {
+        return res.status(404).json({ error: notFoundMessage })
+      }
+
+      try {
+        const data = await model.update(id, req.body)
+        if (!data) return res.status(404).json({ error: notFoundMessage })
+        res.json(data)
+      } catch (err) {
+        res.status(400).json({ error: err.message })
+      }
+    },
+
+    async remove(req, res) {
+      const { id } = req.params
+      if (!UUID_RE.test(id)) {
+        return res.status(404).json({ error: notFoundMessage })
+      }
+
+      try {
+        const data = await model.remove(id)
+        if (!data) return res.status(404).json({ error: notFoundMessage })
+        res.json({ deleted: true, id: data.id })
+      } catch (err) {
+        res.status(500).json({ error: err.message })
+      }
+    },
   }
 }
