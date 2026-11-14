@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
+import useQueryFilter from '../useQueryFilter.js'
 import { getMotifs, getRegions } from '../api.js'
 import RegionCard from '../components/RegionCard.jsx'
 import State from '../components/State.jsx'
@@ -60,7 +60,7 @@ const ISLAND_GROUPS = [
 export default function Regions() {
   const { data, loading, error, retry } = useFetch(getRegions, '/api/regions')
   const motifsRes = useFetch(getMotifs, '/api/motifs')
-  const [searchParams, setSearchParams] = useSearchParams()
+  const { getParam, setParam: updateParam, resetParams: resetFilter } = useQueryFilter()
 
   const regionImages = new Map()
   ;(motifsRes.data || []).forEach((m) => {
@@ -69,19 +69,12 @@ export default function Regions() {
     }
   })
 
-  const island = searchParams.get('wilayah') || 'Semua'
-  const q = searchParams.get('q') || ''
+  const island = getParam('wilayah', 'Semua')
+  const q = getParam('q', '')
 
   useEffect(() => {
     document.title = '38 Provinsi Batik · WastraKu'
   }, [])
-
-  const updateParam = (key, val, defaultVal) => {
-    const next = new URLSearchParams(searchParams)
-    if (!val || val === defaultVal) next.delete(key)
-    else next.set(key, val)
-    setSearchParams(next, { replace: true })
-  }
 
   const group = ISLAND_GROUPS.find((g) => g.label === island) || ISLAND_GROUPS[0]
   const query = q.trim().toLowerCase()
@@ -93,8 +86,6 @@ export default function Regions() {
       [r.province, r.name, r.characteristic, r.description].filter(Boolean).join(' ').toLowerCase().includes(query)
     return matchIsland && matchQuery
   })
-
-  const resetFilter = () => setSearchParams({}, { replace: true })
 
   return (
     <div className="page">

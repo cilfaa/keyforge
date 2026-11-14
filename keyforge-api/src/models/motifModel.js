@@ -13,7 +13,7 @@ export const MotifModel = {
   },
 
   async getById(id) {
-    const { data, error } = await supabase.from("motifs").select(COLUMNS).eq("id", id).single();
+    const { data, error } = await supabase.from("motifs").select(COLUMNS).eq("id", id).maybeSingle();
     if (error) throw error;
     return data;
   },

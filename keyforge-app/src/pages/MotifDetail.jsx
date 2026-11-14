@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
 import { getMotif, getMotifs } from '../api.js'
 import MotifCard from '../components/MotifCard.jsx'
+import ShareButton from '../components/ShareButton.jsx'
 import State from '../components/State.jsx'
 import { MotifThumb } from '../components/Thumbs.jsx'
 
@@ -30,9 +31,12 @@ export default function MotifDetail() {
 
   return (
     <div className="page">
-      <button type="button" className="back" onClick={handleBack}>
-        ← Kembali
-      </button>
+      <div className="detail-actions">
+        <button type="button" className="back" onClick={handleBack}>
+          ← Kembali
+        </button>
+        {motif && <ShareButton title={`${motif.name} · WastraKu`} text={motif.philosophy} />}
+      </div>
 
       <State loading={loading} error={error} onRetry={retry} detail />
 

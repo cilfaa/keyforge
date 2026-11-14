@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
 import { getMotifs, getRegion } from '../api.js'
 import MotifCard from '../components/MotifCard.jsx'
+import ShareButton from '../components/ShareButton.jsx'
 import { RegionThumb } from '../components/Thumbs.jsx'
 import State from '../components/State.jsx'
 
@@ -30,9 +31,12 @@ export default function RegionDetail() {
 
   return (
     <div className="page">
-      <button type="button" className="back" onClick={handleBack}>
-        ← Kembali
-      </button>
+      <div className="detail-actions">
+        <button type="button" className="back" onClick={handleBack}>
+          ← Kembali
+        </button>
+        {region && <ShareButton title={`Batik ${region.province} · WastraKu`} text={region.characteristic} />}
+      </div>
 
       <State loading={loading} error={error} onRetry={retry} detail />
 

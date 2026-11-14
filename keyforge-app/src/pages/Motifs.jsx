@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
+import useQueryFilter from '../useQueryFilter.js'
 import { getMotifs, getRegions } from '../api.js'
 import MotifCard from '../components/MotifCard.jsx'
 import State from '../components/State.jsx'
@@ -10,22 +10,15 @@ const CATEGORIES = ['Semua', 'Keraton', 'Pesisir', 'Pedalaman', 'Nusantara']
 export default function Motifs() {
   const { data, loading, error, retry } = useFetch(getMotifs, '/api/motifs')
   const regionsRes = useFetch(getRegions, '/api/regions')
-  const [searchParams, setSearchParams] = useSearchParams()
+  const { getParam, setParam: updateParam, resetParams: resetFilter } = useQueryFilter()
 
-  const category = searchParams.get('kategori') || 'Semua'
-  const province = searchParams.get('provinsi') || 'Semua'
-  const q = searchParams.get('q') || ''
+  const category = getParam('kategori', 'Semua')
+  const province = getParam('provinsi', 'Semua')
+  const q = getParam('q', '')
 
   useEffect(() => {
     document.title = 'Katalog Motif Batik · WastraKu'
   }, [])
-
-  const updateParam = (key, val, defaultVal) => {
-    const next = new URLSearchParams(searchParams)
-    if (!val || val === defaultVal) next.delete(key)
-    else next.set(key, val)
-    setSearchParams(next, { replace: true })
-  }
 
   const provinces = Array.from(
     new Set((regionsRes.data || []).map((r) => r.province).filter(Boolean)),
@@ -55,8 +48,6 @@ export default function Motifs() {
 
     return haystack.includes(query)
   })
-
-  const resetFilter = () => setSearchParams({}, { replace: true })
 
   return (
     <div className="page">

@@ -17,7 +17,7 @@
   .bottom-nav { display: none !important; }
 }
 
-/* Editorial Masthead (anti-slop, no generic gradient box) */
+/* Editorial Masthead */
 .masthead { padding: 8px 0 22px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
 .masthead-eyebrow { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sogan); margin: 0 0 8px; }
 .masthead h1 { font-size: 2.25rem; margin: 0 0 10px; }
@@ -60,7 +60,7 @@
 .thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .thumb-svg { width: 100%; height: 100%; display: block; }
 
-/* Subtle monochrome/sogan tags (no rainbow pastel slop) */
+/* Category Tags */
 .tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 0.76rem; font-weight: 600; background: var(--surface); border: 1px solid var(--line); color: var(--muted); }
 .cat-keraton { color: var(--sogan); border-color: #e6d5c8; background: #fbf6f2; }
 .cat-pesisir { color: var(--accent); border-color: #cddae8; background: #f4f7fa; }
@@ -77,7 +77,7 @@
 .search:focus, .province-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1); outline: none; }
 
 .chips { display: flex; gap: 8px; overflow-x: auto; padding: 14px 0 8px; }
-.chip { flex: none; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--muted); cursor: pointer; font-size: 0.88rem; font-weight: 500; font-family: var(--font-sans); transition: background 0.15s, border-color 0.15s, color 0.15s; }
+.chip { flex: none; min-height: 38px; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--muted); cursor: pointer; font-size: 0.88rem; font-weight: 500; font-family: var(--font-sans); transition: background 0.15s, border-color 0.15s, color 0.15s; }
 .chip:hover { border-color: #c7bfb3; color: var(--text); background: var(--surface); }
 .chip.on { background: var(--accent); color: #ffffff; border-color: var(--accent); font-weight: 600; }
 
@@ -85,8 +85,11 @@
 .count-label { color: var(--muted); font-weight: 500; }
 
 /* Detail Pages */
-.back { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; color: var(--accent); font-size: 0.95rem; font-weight: 600; padding: 6px 8px 6px 0; margin-bottom: 12px; border-radius: 8px; cursor: pointer; font-family: var(--font-sans); }
+.detail-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.back { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; background: none; border: none; color: var(--accent); font-size: 0.95rem; font-weight: 600; padding: 6px 8px 6px 0; border-radius: 8px; cursor: pointer; font-family: var(--font-sans); }
 .back:hover { text-decoration: underline; }
+.share-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding: 7px 13px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); font-size: 0.86rem; font-weight: 600; font-family: var(--font-sans); cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.share-btn:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
 .detail-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 16px; }
 .detail-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
 @media (min-width: 720px) {
@@ -100,7 +103,10 @@
 .philosophy-box h2 { color: var(--sogan); }
 .philosophy-box p { color: var(--text); }
 
-.spec { display: grid; grid-template-columns: 140px 1fr; gap: 10px 14px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 0; }
+.spec { display: grid; grid-template-columns: 1fr; gap: 6px 14px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 0; }
+@media (min-width: 480px) {
+  .spec { grid-template-columns: 140px 1fr; gap: 10px 14px; }
+}
 .spec-plain { background: transparent; border: none; padding: 4px 0; }
 .spec dt { color: var(--muted); font-size: 0.92rem; }
 .spec dd { margin: 0; font-weight: 500; word-break: break-word; }
@@ -149,6 +155,6 @@
   width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
   display: grid; place-items: center;
   background: var(--accent); color: #fff;
-  font-family: var(--font-display); font-size: 22px; font-weight: 600;
+  font-family: var(--font-serif); font-size: 22px; font-weight: 600;
 }
 .profile-name { display: block; font-size: 17px; color: var(--text); }
