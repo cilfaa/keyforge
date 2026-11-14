@@ -121,14 +121,19 @@ export default function Cart() {
                       +
                     </button>
                   </div>
-                  <button
-                    type="button"
-                    className="remove-btn"
-                    onClick={() => removeItem(it.id)}
-                    aria-label={`Hapus ${it.name}`}
-                  >
-                    Hapus
-                  </button>
+                  <div className="cart-sub-col">
+                    <span className="cart-subtotal">
+                      Subtotal: <strong>{rupiah(it.price * it.qty)}</strong>
+                    </span>
+                    <button
+                      type="button"
+                      className="remove-btn"
+                      onClick={() => removeItem(it.id)}
+                      aria-label={`Hapus ${it.name}`}
+                    >
+                      Hapus
+                    </button>
+                  </div>
                 </div>
               </li>
             ))}
