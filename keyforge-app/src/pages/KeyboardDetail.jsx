@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
 import { getKeyboard } from '../api.js'
+import { useCart } from '../cart.jsx'
 import State from '../components/State.jsx'
 import SoundButton from '../components/SoundButton.jsx'
 import { KeyboardThumb } from '../components/Thumbs.jsx'
@@ -10,6 +11,9 @@ import { formatLayout, rupiah } from '../components/KeyboardCard.jsx'
 export default function KeyboardDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { addItem, totalCount } = useCart()
+  const [added, setAdded] = useState(false)
+  const timerRef = useRef(null)
   const { data: kb, loading, error, retry } = useFetch((opts) => getKeyboard(id, opts), `/api/keyboards/${id}`)
 
   useEffect(() => {
@@ -22,6 +26,13 @@ export default function KeyboardDetail() {
     } else {
       navigate('/keyboards')
     }
+  }
+
+  const handleAdd = () => {
+    addItem(kb)
+    setAdded(true)
+    clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => setAdded(false), 1200)
   }
 
   return (
@@ -39,6 +50,15 @@ export default function KeyboardDetail() {
           </p>
           <p className="price">{rupiah(kb.price)}</p>
           <p>{kb.description}</p>
+
+          <button type="button" className={'btn' + (added ? ' is-added' : '')} onClick={handleAdd}>
+            {added ? '✓ Ditambahkan ke Keranjang' : '+ Tambah ke Keranjang'}
+          </button>
+          {totalCount > 0 && (
+            <Link to="/cart" className="btn btn-secondary">
+              Lihat Keranjang ({totalCount}) ›
+            </Link>
+          )}
 
           <h2>Spesifikasi</h2>
           <dl className="spec">

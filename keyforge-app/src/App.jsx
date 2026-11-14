@@ -6,6 +6,7 @@ import Keyboards from './pages/Keyboards.jsx'
 import KeyboardDetail from './pages/KeyboardDetail.jsx'
 import Switches from './pages/Switches.jsx'
 import SwitchDetail from './pages/SwitchDetail.jsx'
+import Cart from './pages/Cart.jsx'
 import About from './pages/About.jsx'
 import './App.css'
 
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/keyboards/:id" element={<KeyboardDetail />} />
           <Route path="/switches" element={<Switches />} />
           <Route path="/switches/:id" element={<SwitchDetail />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

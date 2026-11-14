@@ -1,4 +1,6 @@
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../cart.jsx'
 import { KeyboardThumb } from './Thumbs.jsx'
 
 export const rupiah = (n) => 'Rp ' + Number(n || 0).toLocaleString('id-ID')
@@ -11,6 +13,19 @@ export function formatLayout(layout) {
 }
 
 export default function KeyboardCard({ kb }) {
+  const { addItem } = useCart()
+  const [added, setAdded] = useState(false)
+  const timerRef = useRef(null)
+
+  const onAdd = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    addItem(kb)
+    setAdded(true)
+    clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => setAdded(false), 700)
+  }
+
   return (
     <li>
       <Link to={`/keyboards/${kb.id}`} className="card">
@@ -25,7 +40,18 @@ export default function KeyboardCard({ kb }) {
           </div>
         </div>
         <div className="card-side">
-          <strong>{rupiah(kb.price)}</strong>
+          <div className="card-price-col">
+            <strong>{rupiah(kb.price)}</strong>
+          </div>
+          <button
+            type="button"
+            className={'cart-add-btn' + (added ? ' is-added' : '')}
+            onClick={onAdd}
+            aria-label={`Tambah ${kb.name} ke keranjang`}
+            title="Tambah ke keranjang"
+          >
+            {added ? '✓' : '+'}
+          </button>
           <span className="chevron" aria-hidden="true">›</span>
         </div>
       </Link>

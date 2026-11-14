@@ -63,10 +63,11 @@
 
 .panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 4px 14px 14px; margin-top: 12px; }
 
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 520px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); background: #14171d; border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); z-index: 10; }
-.nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 0; font-size: 0.75rem; color: var(--muted); transition: color 0.15s; }
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 520px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); background: #14171d; border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); z-index: 10; }
+.nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 0; font-size: 0.72rem; color: var(--muted); transition: color 0.15s; }
 .nav-item:hover { color: var(--text); }
-.nav-icon { display: flex; align-items: center; justify-content: center; height: 22px; }
+.nav-icon { position: relative; display: flex; align-items: center; justify-content: center; height: 22px; }
+.nav-badge { position: absolute; top: -5px; right: -11px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 999px; background: var(--accent); color: #111; font-size: 0.65rem; font-weight: 700; display: grid; place-items: center; line-height: 1; }
 .nav-item.active { color: var(--accent); font-weight: 600; }
 
 .sound-btn { background: #242934; color: var(--text); border: 1px solid var(--line); border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: grid; place-items: center; transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s; }
@@ -108,3 +109,33 @@
 .skel-sub { height: 16px; width: 40%; }
 .skel-price { height: 26px; width: 48%; margin: 4px 0; }
 .skel-block { height: 130px; width: 100%; border-radius: 14px; margin-top: 8px; }
+
+/* Keranjang & Checkout */
+.cart-add-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); background: #242934; color: var(--accent); font-size: 1.15rem; font-weight: 700; display: grid; place-items: center; cursor: pointer; flex-shrink: 0; transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s; }
+.cart-add-btn:hover { border-color: var(--accent); background: #2c313e; }
+.cart-add-btn.is-added, .btn.is-added { background: #2ea043; border-color: #2ea043; color: #fff; }
+.card-price-col { font-size: 0.92rem; }
+.link-danger { background: none; border: none; color: #ff8b8b; font-size: 0.9rem; cursor: pointer; padding: 4px 0; }
+.link-danger:hover { text-decoration: underline; }
+.cart-item { flex-direction: column; align-items: stretch; gap: 12px; }
+.cart-item:hover { transform: none; }
+.cart-link { display: flex; align-items: center; gap: 12px; color: inherit; min-width: 0; }
+.cart-unit { color: var(--accent); font-weight: 600; margin: 4px 0 0; font-size: 0.95rem; }
+.cart-actions { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 10px; }
+.qty-box { display: inline-flex; align-items: center; gap: 6px; background: #141820; border: 1px solid var(--line); border-radius: 10px; padding: 3px; }
+.qty-btn { width: 30px; height: 30px; border: none; border-radius: 8px; background: #242934; color: var(--text); font-size: 1.05rem; cursor: pointer; display: grid; place-items: center; }
+.qty-btn:hover { background: #303746; color: var(--accent); }
+.qty-num { min-width: 24px; text-align: center; font-weight: 600; font-size: 0.95rem; }
+.remove-btn { background: none; border: 1px solid transparent; color: #ff8b8b; font-size: 0.85rem; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+.remove-btn:hover { background: rgba(255, 123, 123, 0.12); border-color: rgba(255, 123, 123, 0.3); }
+.checkout-box { padding-top: 6px; }
+.summary-row { display: flex; justify-content: space-between; align-items: center; margin: 6px 0; }
+.summary-total { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 10px; font-size: 1.08rem; }
+.summary-total strong { color: var(--accent); font-size: 1.25rem; }
+.receipt-box { padding-top: 16px; }
+.receipt-badge { display: inline-block; background: rgba(46, 160, 67, 0.2); color: #56d364; border: 1px solid rgba(46, 160, 67, 0.45); border-radius: 999px; padding: 3px 10px; font-size: 0.8rem; font-weight: 600; margin: 0 0 8px; }
+.receipt-list { list-style: none; padding: 0; margin: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.receipt-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+.receipt-row:last-child { border-bottom: none; }
+.receipt-total { display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; }
+.receipt-total strong { color: var(--accent); font-size: 1.3rem; }
