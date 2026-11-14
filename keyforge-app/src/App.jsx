@@ -2,13 +2,10 @@ import { useEffect } from 'react'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import BottomNav from './components/BottomNav.jsx'
 import Home from './pages/Home.jsx'
-import Keyboards from './pages/Keyboards.jsx'
-import KeyboardDetail from './pages/KeyboardDetail.jsx'
-import Switches from './pages/Switches.jsx'
-import SwitchDetail from './pages/SwitchDetail.jsx'
-import Cart from './pages/Cart.jsx'
-import Orders from './pages/Orders.jsx'
-import OrderDetail from './pages/OrderDetail.jsx'
+import Motifs from './pages/Motifs.jsx'
+import MotifDetail from './pages/MotifDetail.jsx'
+import Regions from './pages/Regions.jsx'
+import RegionDetail from './pages/RegionDetail.jsx'
 import About from './pages/About.jsx'
 import './App.css'
 
@@ -22,7 +19,7 @@ function ScrollToTop() {
 
 function NotFound() {
   useEffect(() => {
-    document.title = 'Halaman Tidak Ditemukan · KeyForge'
+    document.title = 'Halaman Tidak Ditemukan · WastraKu'
   }, [])
 
   return (
@@ -43,13 +40,10 @@ export default function App() {
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/keyboards" element={<Keyboards />} />
-          <Route path="/keyboards/:id" element={<KeyboardDetail />} />
-          <Route path="/switches" element={<Switches />} />
-          <Route path="/switches/:id" element={<SwitchDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/orders/:id" element={<OrderDetail />} />
+          <Route path="/motifs" element={<Motifs />} />
+          <Route path="/motifs/:id" element={<MotifDetail />} />
+          <Route path="/regions" element={<Regions />} />
+          <Route path="/regions/:id" element={<RegionDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

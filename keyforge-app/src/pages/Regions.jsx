@@ -1,21 +1,21 @@
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
-import { getSwitches } from '../api.js'
-import SwitchCard from '../components/SwitchCard.jsx'
+import { getRegions } from '../api.js'
+import RegionCard from '../components/RegionCard.jsx'
 import State from '../components/State.jsx'
 
-const TYPES = ['Semua', 'Linear', 'Tactile', 'Clicky']
+const PROVINCES = ['Semua', 'DI Yogyakarta', 'Jawa Tengah', 'Jawa Barat', 'Jawa Timur']
 
-export default function Switches() {
-  const { data, loading, error, retry } = useFetch(getSwitches, '/api/switches')
+export default function Regions() {
+  const { data, loading, error, retry } = useFetch(getRegions, '/api/regions')
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const type = searchParams.get('type') || 'Semua'
+  const province = searchParams.get('provinsi') || 'Semua'
   const q = searchParams.get('q') || ''
 
   useEffect(() => {
-    document.title = 'Daftar Switch · KeyForge'
+    document.title = 'Daerah Asal Batik · WastraKu'
   }, [])
 
   const updateParam = (key, val, defaultVal) => {
@@ -26,9 +26,9 @@ export default function Switches() {
   }
 
   const shown = (data || []).filter(
-    (s) =>
-      (type === 'Semua' || s.type === type) &&
-      (s.name + ' ' + (s.type || '') + ' ' + (s.sound || '') + ' ' + (s.description || ''))
+    (r) =>
+      (province === 'Semua' || r.province === province) &&
+      (r.name + ' ' + (r.province || '') + ' ' + (r.characteristic || ''))
         .toLowerCase()
         .includes(q.toLowerCase()),
   )
@@ -37,41 +37,41 @@ export default function Switches() {
 
   return (
     <div className="page">
-      <h1>Daftar Switch</h1>
-      <p className="muted">Switch adalah &quot;rasa&quot; tombol keyboard: mulus, ada bump, atau berbunyi klik.</p>
+      <h1>Daerah Asal Batik</h1>
+      <p className="muted">Setiap daerah di Nusantara memiliki ciri khas warna dan corak batik tersendiri.</p>
 
       <input
         className="search"
         type="search"
-        placeholder="Cari nama switch atau karakter suara…"
+        placeholder="Cari nama kota, provinsi, atau ciri khas…"
         value={q}
         onChange={(e) => updateParam('q', e.target.value, '')}
       />
 
-      <div className="chips" role="group" aria-label="Filter tipe switch">
-        {TYPES.map((t) => (
+      <div className="chips" role="group" aria-label="Filter provinsi">
+        {PROVINCES.map((p) => (
           <button
-            key={t}
+            key={p}
             type="button"
-            className={'chip' + (type === t ? ' on' : '')}
-            onClick={() => updateParam('type', t, 'Semua')}
+            className={'chip' + (province === p ? ' on' : '')}
+            onClick={() => updateParam('provinsi', p, 'Semua')}
           >
-            {t}
+            {p}
           </button>
         ))}
       </div>
 
       {data && (
         <div className="toolbar">
-          <span className="count-label">{shown.length} switch</span>
+          <span className="count-label">{shown.length} daerah</span>
         </div>
       )}
 
-      <State loading={loading} error={error} onRetry={retry} count={5} />
+      <State loading={loading} error={error} onRetry={retry} count={4} />
 
       {data && shown.length === 0 && (
         <div className="state empty-box">
-          <p>Tidak ada switch yang cocok dengan pencarianmu.</p>
+          <p>Tidak ada daerah yang cocok dengan pencarianmu.</p>
           <button type="button" className="chip on" onClick={resetFilter}>
             Reset filter
           </button>
@@ -79,8 +79,8 @@ export default function Switches() {
       )}
 
       <ul className="list">
-        {shown.map((s) => (
-          <SwitchCard key={s.id} sw={s} />
+        {shown.map((r) => (
+          <RegionCard key={r.id} region={r} />
         ))}
       </ul>
     </div>

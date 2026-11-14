@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       devOptions: { enabled: true },
       manifest: {
-        name: 'KeyForge',
-        short_name: 'KeyForge',
-        description: 'Katalog keyboard mekanik dan switch.',
+        name: 'WastraKu',
+        short_name: 'WastraKu',
+        description: 'Katalog Batik Nusantara dan Filosofi Motif.',
         start_url: '/',
         scope: '/',
         display: 'standalone',

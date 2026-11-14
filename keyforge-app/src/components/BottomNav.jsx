@@ -1,18 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import { useCart } from '../cart.jsx'
-import { IconCart, IconHome, IconKeyboard, IconSwitch, IconUser } from './Icons.jsx'
+import { IconHome, IconMotif, IconRegion, IconUser } from './Icons.jsx'
 
 const ITEMS = [
   { to: '/', label: 'Beranda', Icon: IconHome, end: true },
-  { to: '/keyboards', label: 'Keyboard', Icon: IconKeyboard },
-  { to: '/switches', label: 'Switch', Icon: IconSwitch },
-  { to: '/cart', label: 'Keranjang', Icon: IconCart, badge: true },
+  { to: '/motifs', label: 'Motif', Icon: IconMotif },
+  { to: '/regions', label: 'Daerah', Icon: IconRegion },
   { to: '/about', label: 'Profil', Icon: IconUser },
 ]
 
 export default function BottomNav() {
-  const { totalCount } = useCart()
-
   return (
     <nav className="bottom-nav" aria-label="Navigasi utama">
       {ITEMS.map((it) => (
@@ -24,11 +20,6 @@ export default function BottomNav() {
         >
           <span className="nav-icon">
             <it.Icon />
-            {it.badge && totalCount > 0 && (
-              <span className="nav-badge" aria-label={`${totalCount} item di keranjang`}>
-                {totalCount > 99 ? '99+' : totalCount}
-              </span>
-            )}
           </span>
           <span>{it.label}</span>
         </NavLink>

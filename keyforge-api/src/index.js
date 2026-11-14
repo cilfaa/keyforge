@@ -1,28 +1,24 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import keyboardRoutes from "./routes/keyboardRoutes.js";
-import switchRoutes from "./routes/switchRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
-import orderRoutes from "./routes/orderRoutes.js";
+import motifRoutes from "./routes/motifRoutes.js";
+import regionRoutes from "./routes/regionRoutes.js";
 
 dotenv.config();
 
 const app = express();
-app.use(cors()); // supaya aplikasi PWA boleh mengambil data dari API ini
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({
-    message: "KeyForge API berjalan",
-    endpoints: ["/api/keyboards", "/api/switches", "/api/auth", "/api/orders"],
+    message: "WastraKu API berjalan",
+    endpoints: ["/api/motifs", "/api/regions"],
   });
 });
 
-app.use("/api/keyboards", keyboardRoutes);
-app.use("/api/switches", switchRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/orders", orderRoutes);
+app.use("/api/motifs", motifRoutes);
+app.use("/api/regions", regionRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
