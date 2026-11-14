@@ -15,12 +15,12 @@ export default function Home() {
 
   return (
     <div className="page">
-      <section className="hero">
-        <span className="hero-kicker">Ensiklopedia Batik Indonesia</span>
+      <section className="masthead">
+        <p className="masthead-eyebrow">Ensiklopedia Digital Batik Indonesia</p>
         <h1>WastraKu</h1>
         <p>
-          Jelajahi kekayaan motif batik autentik dari 38 provinsi di Indonesia lengkap dengan filosofi, sejarah
-          budaya, simbolisme, dan penggunaan tradisionalnya.
+          Menghimpun motif batik autentik dari 38 provinsi di Indonesia lengkap dengan filosofi, sejarah budaya,
+          simbolisme, serta penggunaan tradisionalnya.
         </p>
       </section>
 

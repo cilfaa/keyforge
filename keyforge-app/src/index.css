@@ -1,15 +1,17 @@
 :root {
   --bg: #ffffff;
-  --surface: #f8f9fb;
+  --surface: #faf8f5;
   --card: #ffffff;
-  --card-hover: #f9fafb;
-  --line: #e5e7eb;
-  --text: #18181b;
-  --muted: #52525b;
-  --accent: #b45309;
-  --accent-soft: #fef3c7;
+  --line: #e7e2da;
+  --text: #1c1917;
+  --muted: #57534e;
+  --accent: #1e3a5f;
+  --sogan: #8c4a27;
+  --accent-soft: #eef3f8;
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   color-scheme: light;
-  font: 16px/1.6 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font: 16px/1.65 var(--font-sans);
   color: var(--text);
   background: var(--bg);
 }
@@ -26,6 +28,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -33,20 +36,27 @@ a {
   text-decoration: none;
 }
 
+h1, h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
 h1 {
-  font-size: 1.75rem;
-  line-height: 1.25;
-  margin: 0.25rem 0 0.5rem;
-  letter-spacing: -0.02em;
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
 }
 
 h2 {
-  font-size: 1.15rem;
-  margin: 1.25rem 0 0.5rem;
+  font-size: 1.28rem;
+  margin: 1.6rem 0 0.65rem;
 }
 
 h3 {
-  font-size: 1.02rem;
+  font-size: 1.05rem;
+  font-weight: 600;
   margin: 0;
   line-height: 1.35;
 }
