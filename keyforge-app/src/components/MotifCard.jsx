@@ -2,23 +2,23 @@ import { Link } from 'react-router-dom'
 import { MotifThumb } from './Thumbs.jsx'
 
 export default function MotifCard({ motif }) {
+  const origin = motif.regions
+    ? `${motif.regions.province} · ${motif.regions.name}`
+    : 'Nusantara'
+
   return (
     <li>
       <Link to={`/motifs/${motif.id}`} className="card">
-        <div className="card-left">
-          <MotifThumb motif={motif} size="sm" />
-          <div className="card-main">
-            <h3>{motif.name}</h3>
-            <p className="muted">
-              {motif.regions ? motif.regions.name : 'Nusantara'} · {motif.occasion}
-            </p>
+        <MotifThumb motif={motif} size="card" />
+        <div className="card-body">
+          <h3>{motif.name}</h3>
+          <p className="muted">{origin}</p>
+          <div className="card-foot">
             <span className={`tag cat-${motif.category.toLowerCase()}`}>{motif.category}</span>
+            <span className="chevron" aria-hidden="true">
+              ›
+            </span>
           </div>
-        </div>
-        <div className="card-side">
-          <span className="chevron" aria-hidden="true">
-            ›
-          </span>
         </div>
       </Link>
     </li>

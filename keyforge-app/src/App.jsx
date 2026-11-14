@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, Route, Routes, useLocation } from 'react-router-dom'
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import BottomNav from './components/BottomNav.jsx'
 import Home from './pages/Home.jsx'
 import Motifs from './pages/Motifs.jsx'
@@ -37,6 +37,25 @@ export default function App() {
   return (
     <div className="shell">
       <ScrollToTop />
+      <header className="top-bar">
+        <Link to="/" className="top-brand">
+          Wastra<span>Ku</span>
+        </Link>
+        <nav className="top-links" aria-label="Navigasi desktop">
+          <NavLink to="/" end className={({ isActive }) => 'top-link' + (isActive ? ' active' : '')}>
+            Beranda
+          </NavLink>
+          <NavLink to="/motifs" className={({ isActive }) => 'top-link' + (isActive ? ' active' : '')}>
+            Motif Batik
+          </NavLink>
+          <NavLink to="/regions" className={({ isActive }) => 'top-link' + (isActive ? ' active' : '')}>
+            38 Provinsi
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => 'top-link' + (isActive ? ' active' : '')}>
+            Profil
+          </NavLink>
+        </nav>
+      </header>
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />

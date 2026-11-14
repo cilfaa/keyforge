@@ -5,17 +5,67 @@ import { getRegions } from '../api.js'
 import RegionCard from '../components/RegionCard.jsx'
 import State from '../components/State.jsx'
 
-const PROVINCES = ['Semua', 'DI Yogyakarta', 'Jawa Tengah', 'Jawa Barat', 'Jawa Timur']
+const ISLAND_GROUPS = [
+  { label: 'Semua', match: null },
+  {
+    label: 'Sumatera',
+    match: [
+      'Aceh',
+      'Sumatera Utara',
+      'Sumatera Barat',
+      'Riau',
+      'Kepulauan Riau',
+      'Jambi',
+      'Sumatera Selatan',
+      'Kepulauan Bangka Belitung',
+      'Bengkulu',
+      'Lampung',
+    ],
+  },
+  {
+    label: 'Jawa & Bali',
+    match: ['DKI Jakarta', 'Jawa Barat', 'Banten', 'Jawa Tengah', 'DI Yogyakarta', 'Jawa Timur', 'Bali'],
+  },
+  { label: 'Nusa Tenggara', match: ['Nusa Tenggara Barat', 'Nusa Tenggara Timur'] },
+  {
+    label: 'Kalimantan',
+    match: ['Kalimantan Barat', 'Kalimantan Tengah', 'Kalimantan Selatan', 'Kalimantan Timur', 'Kalimantan Utara'],
+  },
+  {
+    label: 'Sulawesi',
+    match: [
+      'Sulawesi Utara',
+      'Sulawesi Tengah',
+      'Sulawesi Selatan',
+      'Sulawesi Tenggara',
+      'Gorontalo',
+      'Sulawesi Barat',
+    ],
+  },
+  {
+    label: 'Maluku & Papua',
+    match: [
+      'Maluku',
+      'Maluku Utara',
+      'Papua',
+      'Papua Barat',
+      'Papua Selatan',
+      'Papua Tengah',
+      'Papua Pegunungan',
+      'Papua Barat Daya',
+    ],
+  },
+]
 
 export default function Regions() {
   const { data, loading, error, retry } = useFetch(getRegions, '/api/regions')
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const province = searchParams.get('provinsi') || 'Semua'
+  const island = searchParams.get('wilayah') || 'Semua'
   const q = searchParams.get('q') || ''
 
   useEffect(() => {
-    document.title = 'Daerah Asal Batik · WastraKu'
+    document.title = '38 Provinsi Batik · WastraKu'
   }, [])
 
   const updateParam = (key, val, defaultVal) => {
@@ -25,53 +75,56 @@ export default function Regions() {
     setSearchParams(next, { replace: true })
   }
 
-  const shown = (data || []).filter(
-    (r) =>
-      (province === 'Semua' || r.province === province) &&
-      (r.name + ' ' + (r.province || '') + ' ' + (r.characteristic || ''))
-        .toLowerCase()
-        .includes(q.toLowerCase()),
-  )
+  const group = ISLAND_GROUPS.find((g) => g.label === island) || ISLAND_GROUPS[0]
+  const query = q.trim().toLowerCase()
+
+  const shown = (data || []).filter((r) => {
+    const matchIsland = !group.match || group.match.includes(r.province)
+    const matchQuery =
+      !query ||
+      [r.province, r.name, r.characteristic, r.description].filter(Boolean).join(' ').toLowerCase().includes(query)
+    return matchIsland && matchQuery
+  })
 
   const resetFilter = () => setSearchParams({}, { replace: true })
 
   return (
     <div className="page">
-      <h1>Daerah Asal Batik</h1>
-      <p className="muted">Setiap daerah di Nusantara memiliki ciri khas warna dan corak batik tersendiri.</p>
+      <h1>38 Provinsi Batik Nusantara</h1>
+      <p className="muted">Eksplorasi kekhasan corak dan warna batik dari Sabang sampai Merauke.</p>
 
       <input
         className="search"
         type="search"
-        placeholder="Cari nama kota, provinsi, atau ciri khas…"
+        placeholder="Cari nama provinsi, kota, atau ciri khas batik…"
         value={q}
         onChange={(e) => updateParam('q', e.target.value, '')}
       />
 
-      <div className="chips" role="group" aria-label="Filter provinsi">
-        {PROVINCES.map((p) => (
+      <div className="chips" role="group" aria-label="Filter wilayah Indonesia">
+        {ISLAND_GROUPS.map((g) => (
           <button
-            key={p}
+            key={g.label}
             type="button"
-            className={'chip' + (province === p ? ' on' : '')}
-            onClick={() => updateParam('provinsi', p, 'Semua')}
+            className={'chip' + (island === g.label ? ' on' : '')}
+            onClick={() => updateParam('wilayah', g.label, 'Semua')}
           >
-            {p}
+            {g.label}
           </button>
         ))}
       </div>
 
       {data && (
         <div className="toolbar">
-          <span className="count-label">{shown.length} daerah</span>
+          <span className="count-label">{shown.length} provinsi</span>
         </div>
       )}
 
-      <State loading={loading} error={error} onRetry={retry} count={4} />
+      <State loading={loading} error={error} onRetry={retry} count={6} />
 
       {data && shown.length === 0 && (
         <div className="state empty-box">
-          <p>Tidak ada daerah yang cocok dengan pencarianmu.</p>
+          <p>Tidak ada provinsi yang cocok dengan pencarianmu.</p>
           <button type="button" className="chip on" onClick={resetFilter}>
             Reset filter
           </button>

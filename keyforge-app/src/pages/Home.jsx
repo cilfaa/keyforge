@@ -10,14 +10,18 @@ export default function Home() {
   const regions = useFetch(getRegions, '/api/regions')
 
   useEffect(() => {
-    document.title = 'WastraKu — Katalog Batik Nusantara'
+    document.title = 'WastraKu — Ensiklopedia Digital Batik Nusantara'
   }, [])
 
   return (
     <div className="page">
       <section className="hero">
+        <span className="hero-kicker">Ensiklopedia Batik Indonesia</span>
         <h1>WastraKu</h1>
-        <p>Katalog Batik Nusantara &amp; Filosofi Motif. Kenali makna luhur, sejarah, dan daerah asal batik Indonesia.</p>
+        <p>
+          Jelajahi kekayaan motif batik autentik dari 38 provinsi di Indonesia lengkap dengan filosofi, sejarah
+          budaya, simbolisme, dan penggunaan tradisionalnya.
+        </p>
       </section>
 
       <section className="stats">
@@ -27,17 +31,17 @@ export default function Home() {
         </Link>
         <Link to="/regions" className="stat">
           <strong>{regions.data ? regions.data.length : '–'}</strong>
-          <span>Daerah Asal</span>
+          <span>Provinsi Indonesia</span>
         </Link>
       </section>
 
       <div className="list-head">
-        <h2>Motif Pilihan</h2>
-        <Link to="/motifs">Lihat semua ›</Link>
+        <h2>Motif Pilihan Nusantara</h2>
+        <Link to="/motifs">Jelajahi semua ›</Link>
       </div>
       <State loading={motifs.loading} error={motifs.error} onRetry={motifs.retry} count={3} />
       <ul className="list">
-        {motifs.data && motifs.data.slice(0, 3).map((m) => <MotifCard key={m.id} motif={m} />)}
+        {motifs.data && motifs.data.slice(0, 6).map((m) => <MotifCard key={m.id} motif={m} />)}
       </ul>
     </div>
   )

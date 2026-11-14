@@ -31,38 +31,59 @@ export default function MotifDetail() {
         <>
           <MotifThumb motif={motif} size="lg" />
           <h1>{motif.name}</h1>
-          <p className="muted">
-            {motif.regions ? motif.regions.name : 'Nusantara'} · {motif.occasion}
-          </p>
-          <span className={`tag cat-${motif.category.toLowerCase()}`}>{motif.category}</span>
+          <div className="detail-meta">
+            <span className={`tag cat-${motif.category.toLowerCase()}`}>{motif.category}</span>
+            <span className="tag">{motif.occasion}</span>
+            {motif.regions && (
+              <span className="muted">
+                {motif.regions.province} · {motif.regions.name}
+              </span>
+            )}
+          </div>
 
           <section className="panel philosophy-box">
-            <h2>Filosofi &amp; Makna</h2>
+            <h2>Makna &amp; Filosofi</h2>
             <p>{motif.philosophy}</p>
           </section>
 
-          <h2>Deskripsi Motif</h2>
-          <p>{motif.description}</p>
+          <div className="detail-grid">
+            {motif.history && (
+              <section className="panel">
+                <h2>Sejarah Budaya</h2>
+                <p>{motif.history}</p>
+              </section>
+            )}
 
-          <h2>Informasi Lengkap</h2>
+            {motif.symbolism && (
+              <section className="panel">
+                <h2>Simbolisme</h2>
+                <p>{motif.symbolism}</p>
+              </section>
+            )}
+          </div>
+
+          <section className="panel">
+            <h2>Deskripsi Pola &amp; Ornamen</h2>
+            <p>{motif.description}</p>
+          </section>
+
+          <h2>Ringkasan Informasi</h2>
           <dl className="spec">
-            <dt>Kategori</dt>
-            <dd>{motif.category}</dd>
-            <dt>Cocok Untuk</dt>
-            <dd>{motif.occasion}</dd>
+            <dt>Nama Motif</dt>
+            <dd>{motif.name}</dd>
+            <dt>Provinsi</dt>
+            <dd>{motif.regions ? motif.regions.province : '-'}</dd>
             <dt>Daerah Asal</dt>
             <dd>{motif.regions ? motif.regions.name : '-'}</dd>
-            {motif.regions?.province && (
-              <>
-                <dt>Provinsi</dt>
-                <dd>{motif.regions.province}</dd>
-              </>
-            )}
+            <dt>Kategori</dt>
+            <dd>{motif.category}</dd>
+            <dt>Penggunaan Adat</dt>
+            <dd>{motif.occasion}</dd>
           </dl>
 
           {motif.regions && (
             <Link to={`/regions/${motif.regions.id}`} className="btn">
-              Lihat profil batik {motif.regions.name} ›
+              Jelajahi Batik Provinsi {motif.regions.province} ›
             </Link>
           )}
         </>

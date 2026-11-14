@@ -1,7 +1,7 @@
 import { supabase } from "../config/supabaseClient.js";
 
 const COLUMNS = `
-  id, name, category, occasion, philosophy, description, region_id,
+  id, name, category, occasion, philosophy, history, symbolism, description, image_url, region_id,
   regions ( id, name, province, characteristic )
 `;
 
