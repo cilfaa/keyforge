@@ -62,7 +62,7 @@ export default function RegionDetail() {
               </div>
               <ul className="list">
                 {visibleMotifs.map((m) => (
-                  <MotifCard key={m.id} motif={m} />
+                  <MotifCard key={m.id} motif={m} linkState={{ fromRegionId: region.id }} />
                 ))}
               </ul>
             </>

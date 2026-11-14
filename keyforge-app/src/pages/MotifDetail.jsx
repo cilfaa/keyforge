@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
 import { getMotif, getMotifs } from '../api.js'
 import MotifCard from '../components/MotifCard.jsx'
@@ -9,6 +9,8 @@ import { MotifThumb } from '../components/Thumbs.jsx'
 export default function MotifDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
+  const fromRegionId = location.state?.fromRegionId
   const { data: motif, loading, error, retry } = useFetch((opts) => getMotif(id, opts), `/api/motifs/${id}`)
   const allMotifs = useFetch(getMotifs, '/api/motifs')
 
@@ -103,7 +105,7 @@ export default function MotifDetail() {
             </>
           )}
 
-          {motif.regions && (
+          {!fromRegionId && motif.regions && (
             <Link
               to={`/regions/${motif.regions.id}`}
               state={{ fromMotifId: motif.id, fromMotifName: motif.name }}

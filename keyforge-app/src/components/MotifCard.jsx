@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
 import { MotifThumb } from './Thumbs.jsx'
 
-export default function MotifCard({ motif }) {
+export default function MotifCard({ motif, linkState }) {
   const origin = motif.regions
     ? `${motif.regions.province} · ${motif.regions.name}`
     : 'Nusantara'
 
   return (
     <li>
-      <Link to={`/motifs/${motif.id}`} className="card">
+      <Link to={`/motifs/${motif.id}`} state={linkState} className="card">
         <MotifThumb motif={motif} size="card" />
         <div className="card-body">
           <h3>{motif.name}</h3>
