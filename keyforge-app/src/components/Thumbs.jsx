@@ -46,23 +46,23 @@ export function MotifThumb({ motif, size = 'card' }) {
   )
 }
 
-export function RegionThumb({ region, size = 'sm' }) {
-  const initials = String(region?.province || region?.name || 'ID')
-    .split(' ')
-    .map((w) => w[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase()
+export function RegionThumb({ region, imageUrl, size = 'sm' }) {
+  const [imgError, setImgError] = useState(false)
 
   return (
-    <div className={`thumb-box thumb-${size}`} style={{ background: '#fffbeb' }} aria-hidden="true">
-      <svg viewBox="0 0 100 80" className="thumb-svg">
-        <circle cx="50" cy="40" r="28" fill="#fef3c7" stroke="#b45309" strokeWidth="2" />
-        <circle cx="50" cy="40" r="21" fill="none" stroke="#d97706" strokeOpacity="0.45" strokeDasharray="3 3" />
-        <text x="50" y="46" textAnchor="middle" fontSize="16" fontWeight="700" fill="#92400e">
-          {initials}
-        </text>
-      </svg>
+    <div className={`thumb-box thumb-${size}`}>
+      {imageUrl && !imgError ? (
+        <img
+          src={imageUrl}
+          alt={`Batik khas ${region?.province || region?.name || 'Nusantara'}`}
+          className="thumb-img"
+          loading="lazy"
+          referrerPolicy="no-referrer"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <MotifFallbackSvg motif={{ category: 'Nusantara' }} />
+      )}
     </div>
   )
 }

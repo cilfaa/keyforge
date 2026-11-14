@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import { RegionThumb } from './Thumbs.jsx'
 
-export default function RegionCard({ region }) {
+export default function RegionCard({ region, imageUrl }) {
   return (
     <li>
       <Link to={`/regions/${region.id}`} className="card region-card">
-        <RegionThumb region={region} size="sm" />
+        <RegionThumb region={region} imageUrl={imageUrl} size="sm" />
         <div className="card-main">
           <h3>{region.province}</h3>
           <p className="muted">{region.name}</p>

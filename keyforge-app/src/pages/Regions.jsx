@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import useFetch from '../useFetch.js'
-import { getRegions } from '../api.js'
+import { getMotifs, getRegions } from '../api.js'
 import RegionCard from '../components/RegionCard.jsx'
 import State from '../components/State.jsx'
 
@@ -59,7 +59,15 @@ const ISLAND_GROUPS = [
 
 export default function Regions() {
   const { data, loading, error, retry } = useFetch(getRegions, '/api/regions')
+  const motifsRes = useFetch(getMotifs, '/api/motifs')
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const regionImages = new Map()
+  ;(motifsRes.data || []).forEach((m) => {
+    if (m.region_id && m.image_url && !regionImages.has(m.region_id)) {
+      regionImages.set(m.region_id, m.image_url)
+    }
+  })
 
   const island = searchParams.get('wilayah') || 'Semua'
   const q = searchParams.get('q') || ''
@@ -133,7 +141,7 @@ export default function Regions() {
 
       <ul className="list">
         {shown.map((r) => (
-          <RegionCard key={r.id} region={r} />
+          <RegionCard key={r.id} region={r} imageUrl={regionImages.get(r.id)} />
         ))}
       </ul>
     </div>

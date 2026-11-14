@@ -1,5 +1,5 @@
 .shell { max-width: 1080px; margin: 0 auto; min-height: 100vh; background: var(--bg); }
-.main { padding: 20px 16px 96px; }
+.main { padding: max(20px, env(safe-area-inset-top)) 16px 96px; }
 .muted { color: var(--muted); margin: 2px 0; }
 .state { text-align: center; color: var(--muted); padding: 28px 16px; }
 
