@@ -82,8 +82,12 @@ export default function MotifDetail() {
           </dl>
 
           {motif.regions && (
-            <Link to={`/regions/${motif.regions.id}`} className="btn">
-              Lihat Profil &amp; Motif {motif.regions.province} ›
+            <Link
+              to={`/regions/${motif.regions.id}`}
+              state={{ fromMotifId: motif.id, fromMotifName: motif.name }}
+              className="btn"
+            >
+              Lihat Profil Provinsi {motif.regions.province} ›
             </Link>
           )}
         </>
