@@ -27,13 +27,13 @@ export default defineConfig({
         navigateFallback: '/index.html',
         runtimeCaching: [
           {
-            // Disk cache untuk foto kain batik (Wikimedia Commons)
-            urlPattern: /^https:\/\/(commons|upload)\.wikimedia\.org\/.*/i,
+            // Disk cache untuk foto kain batik & landmark provinsi (Wikimedia Commons)
+            urlPattern: /^https:\/\/(commons|upload|thumb)\.wikimedia\.org\/.*/i,
             handler: 'CacheFirst',
             options: {
               cacheName: 'batik-images-disk-cache',
               expiration: {
-                maxEntries: 120,
+                maxEntries: 200,
                 maxAgeSeconds: 60 * 60 * 24 * 30, // 30 hari
               },
               cacheableResponse: {

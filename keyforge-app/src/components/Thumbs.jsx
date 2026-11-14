@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PROVINCE_LANDMARKS } from '../data/provinceLandmarks.js'
 
 function getMotifPalette(motif) {
   const cat = String(motif?.category || '').toLowerCase()
@@ -48,13 +49,18 @@ export function MotifThumb({ motif, size = 'card' }) {
 
 export function RegionThumb({ region, imageUrl, size = 'sm' }) {
   const [imgError, setImgError] = useState(false)
+  const landmark = PROVINCE_LANDMARKS[region?.province]
+  const src = landmark?.url || imageUrl
+  const altText = landmark?.label
+    ? `${landmark.label}, ${region?.province}`
+    : `Batik khas ${region?.province || region?.name || 'Nusantara'}`
 
   return (
     <div className={`thumb-box thumb-${size}`}>
-      {imageUrl && !imgError ? (
+      {src && !imgError ? (
         <img
-          src={imageUrl}
-          alt={`Batik khas ${region?.province || region?.name || 'Nusantara'}`}
+          src={src}
+          alt={altText}
           className="thumb-img"
           loading="lazy"
           referrerPolicy="no-referrer"
