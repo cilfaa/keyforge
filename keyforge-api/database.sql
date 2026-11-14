@@ -113,7 +113,7 @@ insert into motifs (name, category, occasion, philosophy, history, symbolism, de
   'Tumbuh pesat di Pekalongan sejak abad ke-19 melalui perpaduan perajin lokal Jawa dengan pengaruh pedagang Tionghoa, Arab, dan Eropa.',
   'Ragam flora dan kupu-kupu melambangkan kehidupan yang dinamis dan penuh sukacita.',
   'Dipenuhi ragam hias bunga, daun, dan kupu-kupu dengan warna-warni cerah yang segar dipandang.',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Detail_batik_motif_sekar_jagad_warna_merah_khas_pekalongan.jpg?width=800',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Kain_batik_motif_sekar_jagad.jpg?width=800',
   (select id from regions where province = 'Jawa Tengah' limit 1)
 ),
 (
@@ -194,7 +194,7 @@ insert into motifs (name, category, occasion, philosophy, history, symbolism, de
   'Berkembang di wilayah Kesultanan Siak dan Pekanbaru dengan mengambil inspirasi dari tirai pelaminan adat Melayu.',
   'Motif pucuk rebung menyimbolkan pertumbuhan yang selalu berguna dari muda hingga tua.',
   'Susunan garis vertikal dan segitiga pucuk rebung berwarna cerah dengan aksen keemasan.',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Detail_batik_motif_sekar_jagad_warna_merah_khas_pekalongan.jpg?width=800',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Kain_batik_motif_sekar_jagad.jpg?width=800',
   (select id from regions where province = 'Riau' limit 1)
 ),
 (
@@ -212,7 +212,7 @@ insert into motifs (name, category, occasion, philosophy, history, symbolism, de
   'Terinspirasi dari legenda sepasang angsa yang menuntun Putri Mayang Mangurai menemukan lokasi pendirian Kota Jambi.',
   'Dua ekor angsa yang beriringan melambangkan kerja sama dan keteguhan hati.',
   'Menampilkan sepasang angsa putih di atas latar merah kesumba yang dikelilingi sulur bunga.',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Detail_batik_motif_sekar_jagad_warna_merah_khas_pekalongan.jpg?width=800',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Kain_batik_motif_sekar_jagad.jpg?width=800',
   (select id from regions where province = 'Jambi' limit 1)
 ),
 (
@@ -401,7 +401,7 @@ insert into motifs (name, category, occasion, philosophy, history, symbolism, de
   'Diciptakan untuk mengenang sejarah Kepulauan Banda dan Ambon sebagai penghasil pala terbaik dunia.',
   'Buah pala dan tifa melambangkan sumber kesejahteraan serta keharmonisan sosial.',
   'Menampilkan buah pala terbelah, bunga cengkeh, dan alat musik tifa berwarna hangat.',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Detail_batik_motif_sekar_jagad_warna_merah_khas_pekalongan.jpg?width=800',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Kain_batik_motif_sekar_jagad.jpg?width=800',
   (select id from regions where province = 'Maluku' limit 1)
 ),
 (

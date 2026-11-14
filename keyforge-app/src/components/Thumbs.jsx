@@ -25,9 +25,14 @@ function MotifFallbackSvg({ motif }) {
   )
 }
 
+const WATERMARKED_WIKIMEDIA_FILE = 'Detail_batik_motif_sekar_jagad_warna_merah_khas_pekalongan.jpg'
+const CLEAN_SEKAR_JAGAD_URL =
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Kain_batik_motif_sekar_jagad.jpg?width=800'
+
 export function MotifThumb({ motif, size = 'card' }) {
   const [imgError, setImgError] = useState(false)
-  const src = motif?.image_url
+  const rawSrc = motif?.image_url
+  const src = rawSrc?.includes(WATERMARKED_WIKIMEDIA_FILE) ? CLEAN_SEKAR_JAGAD_URL : rawSrc
 
   return (
     <div className={`thumb-box thumb-${size}`}>

@@ -83,7 +83,7 @@ export default function MotifDetail() {
 
           {motif.regions && (
             <Link to={`/regions/${motif.regions.id}`} className="btn">
-              Jelajahi Batik Provinsi {motif.regions.province} ›
+              Lihat Profil &amp; Motif {motif.regions.province} ›
             </Link>
           )}
         </>
